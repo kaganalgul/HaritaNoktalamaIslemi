@@ -1,0 +1,63 @@
+﻿@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Harita";
+}
+
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form method="post" asp-controller="Home" asp-action="TakeInformation">
+            <label for="userName">First name:</label><br>
+            <input asp-for="userLocationDTOForPost.Username"><br>
+            <label for="userNumber">Number:</label><br>
+            <input asp-for="userLocationDTOForPost.UserNumber"><br><br>
+            <input type="submit" value="Submit"><br><br>
+            <label for="pointXaxis">X-axis:</label><br>
+            <input id="pointXaxis" asp-for="userLocationDTOForPost.Point.Xaxis"><br>
+            <label for="pointYaxis">Y-axis:</label><br>
+            <input id="pointYaxis" asp-for="userLocationDTOForPost.Point.Yaxis"><br>
+        </form>
+    </div>
+</div>
+
+<div id="myTable" class="modal">
+    <div class="modal-content">
+        <span id="closeBtn" class="close">&times;</span>
+        <table id="userInfoDataTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.userLocationDTOList)
+            {
+                <tbody>
+                    <tr>
+                        <td>@item.Username</td>
+                        <td>@item.UserNumber</td>
+                        <td>@item.Point.Xaxis , @item.Point.Yaxis</td>
+                    </tr>
+                </tbody>
+            }
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Location</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+ @section Scripts {
+     <script>
+         $(document).ready(function () {
+             $('#userInfoDataTable').DataTable();
+         });
+     </script>
+ }
+
